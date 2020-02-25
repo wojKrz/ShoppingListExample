@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/fragmentHome"
+    >
+
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="pl.shoppinglistexample.presentation.main.home.HomeFragment"
+        tools:layout="@layout/home_fragment"
+        />
+
+    <fragment
+        android:id="@+id/fragmentCurrentList"
+        android:name="pl.shoppinglistexample.presentation.main.currentlist.CurrentListFragment"
+        tools:layout="@layout/current_list_fragment"
+        >
+        <action android:id="@+id/actionCurrentToListDetails"
+            app:destination="@id/fragmentListDetails"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentListDetails"
+        android:name="pl.shoppinglistexample.presentation.main.details.ShoppingListDetailsFragment"
+        tools:layout="@layout/list_details_fragment">
+        <argument
+            android:name="listId"
+            app:argType="long"/>
+
+    </fragment>
+</navigation>

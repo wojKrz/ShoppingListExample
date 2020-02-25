@@ -1,0 +1,2 @@
+include ':app', ':domain', ':persistence'
+rootProject.name='ShoppingListExample'

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ShoppingListExample</string>
+
+    <!-- Current list -->
+
+    <string name="current_list_label">Current</string>
+
+
+    <!-- Archived list -->
+
+    <string name="archived_list_label">Archived</string>
+
+</resources>
