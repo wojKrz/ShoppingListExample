@@ -9,6 +9,8 @@ import pl.shoppinglistexample.presentation.main.MainActivity
 import pl.shoppinglistexample.presentation.main.MainViewModel
 import pl.shoppinglistexample.presentation.main.ViewModelKey
 import pl.shoppinglistexample.presentation.main.archivelist.di.ArchivedListModule
+import pl.shoppinglistexample.presentation.main.currentlist.create.CreateNewListFragment
+import pl.shoppinglistexample.presentation.main.currentlist.create.di.CreateNewListModule
 import pl.shoppinglistexample.presentation.main.currentlist.di.CurrentListModule
 import pl.shoppinglistexample.presentation.main.details.di.ShoppingListDetailsModule
 import pl.shoppinglistexample.presentation.main.home.di.HomeModule
@@ -18,6 +20,7 @@ import pl.shoppinglistexample.presentation.main.home.di.HomeModule
         HomeModule::class,
         ArchivedListModule::class,
         CurrentListModule::class,
+        CreateNewListModule::class,
         ShoppingListDetailsModule::class
     ]
 )

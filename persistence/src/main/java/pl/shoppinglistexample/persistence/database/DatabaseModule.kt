@@ -4,11 +4,16 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
+import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao
 import javax.inject.Singleton
 
 @Module
 class DatabaseModule {
 
+    @Provides
+    @Singleton
+    internal fun provideShoppingListsDao(database: ShoppingListsDatabase): ShoppingListDao =
+        database.shoppingListDao()
 
     @Provides
     @Singleton

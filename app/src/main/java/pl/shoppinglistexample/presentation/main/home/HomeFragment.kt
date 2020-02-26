@@ -15,9 +15,10 @@ import kotlinx.android.synthetic.main.home_fragment.*
 import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.HomeFragmentBinding
 import pl.shoppinglistexample.presentation.main.archivelist.ArchivedListFragment
+import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.currentlist.CurrentListFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

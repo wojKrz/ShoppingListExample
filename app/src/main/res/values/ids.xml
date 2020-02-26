@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="itemCurrentList" type="id" />
+
+    <item name="itemArchivedList" type="id" />
+
+</resources>

@@ -3,24 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/fragmentHome"
-    >
+    app:startDestination="@id/fragmentHome">
 
     <fragment
         android:id="@+id/fragmentHome"
         android:name="pl.shoppinglistexample.presentation.main.home.HomeFragment"
-        tools:layout="@layout/home_fragment"
-        />
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/actionCurrentToListDetails"
+            app:destination="@id/fragmentListDetails" >
+            <argument
+                android:name="listId"
+                app:argType="long" />
+        </action>
+
+        <action
+            android:id="@+id/actionCreateNewList"
+            app:destination="@id/dialogCreateList" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragmentCurrentList"
         android:name="pl.shoppinglistexample.presentation.main.currentlist.CurrentListFragment"
-        tools:layout="@layout/current_list_fragment"
-        >
-        <action android:id="@+id/actionCurrentToListDetails"
-            app:destination="@id/fragmentListDetails"
-            />
-    </fragment>
+        tools:layout="@layout/current_list_fragment" />
+
+    <dialog
+        android:id="@+id/dialogCreateList"
+        android:name="pl.shoppinglistexample.presentation.main.currentlist.create.CreateNewListFragment"
+        tools:layout="@layout/create_new_list_fragment" />
 
     <fragment
         android:id="@+id/fragmentListDetails"
@@ -28,7 +38,7 @@
         tools:layout="@layout/list_details_fragment">
         <argument
             android:name="listId"
-            app:argType="long"/>
+            app:argType="long" />
 
     </fragment>
 </navigation>

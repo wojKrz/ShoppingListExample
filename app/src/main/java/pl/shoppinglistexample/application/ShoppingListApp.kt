@@ -5,13 +5,11 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.DaggerApplication
+import pl.shoppinglistexample.domain.DaggerDomainComponent
+import pl.shoppinglistexample.domain.DomainComponent
 import javax.inject.Inject
 
-class ShoppingListApp : DaggerApplication(), ApplicationComponent.ComponentProvider {
-
-    override lateinit var applicationComponent: ApplicationComponent
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = applicationComponent
+class ShoppingListApp : Application(), HasAndroidInjector {
 
     //region Activity injector
 
@@ -34,8 +32,13 @@ class ShoppingListApp : DaggerApplication(), ApplicationComponent.ComponentProvi
 
     private fun setupDI() {
 
-        applicationComponent = DaggerApplicationComponent.builder()
+        val domainComponent= DaggerDomainComponent.builder()
+        .domainInstance(this)
+            .build()
+
+        DaggerApplicationComponent.builder()
             .appInstance(this)
+            .domainInstance(domainComponent)
             .build()
             .also { it.inject(this) }
     }

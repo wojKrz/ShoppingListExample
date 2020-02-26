@@ -55,6 +55,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:2.1.0"
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
