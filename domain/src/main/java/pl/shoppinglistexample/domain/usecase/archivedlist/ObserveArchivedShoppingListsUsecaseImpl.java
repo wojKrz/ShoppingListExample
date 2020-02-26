@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Flowable;
 import pl.shoppinglistexample.domain.mapper.ShoppingListItemsMapper;
+import pl.shoppinglistexample.domain.model.ShoppingListItemModel;
 import pl.shoppinglistexample.domain.model.ShoppingListModel;
 import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao;
 
@@ -22,8 +23,8 @@ public class ObserveArchivedShoppingListsUsecaseImpl implements ObserveArchivedS
     }
 
     @Override
-    public Flowable<List<ShoppingListModel>> execute(Void aVoid) {
-        return null;
+    public Flowable<List<ShoppingListItemModel>> execute(Void aVoid) {
+        return shoppingListDao.observeArchivedLists().map(mapper::mapPersistenceListToDomain);
     }
 
 }
