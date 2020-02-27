@@ -7,7 +7,7 @@ class DbTypeConverters {
 
     @TypeConverter
     fun listFromCsv(csv: String?): List<String> =
-        csv?.split(",") ?: emptyList()
+        csv?.takeIf { it.isNotEmpty() }?.split(",") ?: emptyList()
 
     @TypeConverter
     fun csvFromList(list: List<String>) =

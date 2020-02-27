@@ -39,3 +39,4 @@ class CurrentShoppingListItem(model: ShoppingListItemModel) : ModelAbstractItem<
 
     }
 }
+

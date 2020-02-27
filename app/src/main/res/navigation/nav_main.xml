@@ -11,7 +11,10 @@
         tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/actionCurrentToListDetails"
-            app:destination="@id/fragmentListDetails" >
+            app:destination="@id/nav_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@id/fragmentHome"
+            >
             <argument
                 android:name="listId"
                 app:argType="long" />
@@ -22,23 +25,22 @@
             app:destination="@id/dialogCreateList" />
     </fragment>
 
-    <fragment
-        android:id="@+id/fragmentCurrentList"
-        android:name="pl.shoppinglistexample.presentation.main.currentlist.CurrentListFragment"
-        tools:layout="@layout/current_list_fragment" />
-
     <dialog
         android:id="@+id/dialogCreateList"
         android:name="pl.shoppinglistexample.presentation.main.currentlist.create.CreateNewListFragment"
         tools:layout="@layout/create_new_list_fragment" />
 
-    <fragment
-        android:id="@+id/fragmentListDetails"
-        android:name="pl.shoppinglistexample.presentation.main.details.ShoppingListDetailsFragment"
-        tools:layout="@layout/list_details_fragment">
-        <argument
-            android:name="listId"
-            app:argType="long" />
+    <navigation android:id="@+id/nav_details"
+        app:startDestination="@id/fragmentListDetails">
 
-    </fragment>
+        <fragment
+            android:id="@+id/fragmentListDetails"
+            android:name="pl.shoppinglistexample.presentation.main.details.ShoppingListDetailsFragment"
+            tools:layout="@layout/list_details_fragment">
+            <argument
+                android:name="listId"
+                app:argType="long" />
+
+        </fragment>
+    </navigation>
 </navigation>

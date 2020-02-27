@@ -32,7 +32,7 @@ class CurrentListViewModel @Inject constructor(
     }
 
     fun onAddNewListClick() {
-        _viewEvents.value = CurrentListFragment.CurrentListViewEvent.ShowNewListFormEvent
+        postConsumableActionEvent(CurrentListFragment.CurrentListViewEvent.ShowNewListFormEvent)
     }
 
     fun onMoveToArchivedClick(listId: Long) {
@@ -44,11 +44,11 @@ class CurrentListViewModel @Inject constructor(
     }
 
     private fun onMoveToArchiveSuccess() {
-        _viewEvents.value = CurrentListFragment.CurrentListViewEvent.ShowArchiveSucccessInfo
+        postConsumableActionEvent(CurrentListFragment.CurrentListViewEvent.ShowArchiveSucccessInfo)
     }
 
     fun onDisplayDetailsClick(listId: Long) {
-        _viewEvents.value = CurrentListFragment.CurrentListViewEvent.ShowListDetails(listId)
+        postConsumableActionEvent(CurrentListFragment.CurrentListViewEvent.ShowListDetails(listId))
     }
 
 }

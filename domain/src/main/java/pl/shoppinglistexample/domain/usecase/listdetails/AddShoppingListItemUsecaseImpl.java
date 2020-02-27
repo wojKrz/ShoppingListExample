@@ -1,5 +1,6 @@
 package pl.shoppinglistexample.domain.usecase.listdetails;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -10,8 +11,8 @@ import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao;
 
 public class AddShoppingListItemUsecaseImpl implements AddShoppingListItemUsecase {
 
-    ShoppingListDao shoppingListDao;
-    ShoppingListItemsMapper mapper;
+    private ShoppingListDao shoppingListDao;
+    private ShoppingListItemsMapper mapper;
 
     @Inject
     public AddShoppingListItemUsecaseImpl(ShoppingListDao shoppingListDao, ShoppingListItemsMapper mapper) {
@@ -21,6 +22,11 @@ public class AddShoppingListItemUsecaseImpl implements AddShoppingListItemUsecas
 
     @Override
     public Completable execute(UpdateShoppingListParams.AddItemParams addItemParams) {
+
+        if(addItemParams.getItem() == null || addItemParams.getItem().isEmpty()) {
+            return Completable.error(new InvalidParameterException("Item to add cannot be neither null nor empty"));
+        }
+
         if(addItemParams.getListModel().isArchived()) {
             return Completable.error(new UnsupportedOperationException("Cannot update archived list with id " + addItemParams.getListModel().getId()));
         } else {
@@ -30,7 +36,7 @@ public class AddShoppingListItemUsecaseImpl implements AddShoppingListItemUsecas
             ShoppingListModel updatedEntity = new ShoppingListModel(
                     addItemParams.getListModel().getId(),
                     addItemParams.getListModel().getTitle(),
-                    0L,
+                    addItemParams.getListModel().getTimestampCreated(),
                     newItemsList,
                     addItemParams.getListModel().isArchived()
             );

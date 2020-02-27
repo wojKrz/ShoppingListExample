@@ -4,14 +4,25 @@ import io.reactivex.Completable
 import io.reactivex.schedulers.Schedulers
 import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao
 import pl.shoppinglistexample.persistence.database.entity.ShoppingListEntity
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class CreateNewShoppingListImpl @Inject constructor(
     val shoppingListDao: ShoppingListDao
-): CreateNewShoppingListUsecase {
+) : CreateNewShoppingListUsecase {
 
-    override fun execute(args: CreateNewListParams): Completable = shoppingListDao.insertList(
-        ShoppingListEntity(title = args.title, isArchived = false, timestampCreated = args.timestampCreated)
-    ).subscribeOn(Schedulers.io())
+    override fun execute(args: CreateNewListParams): Completable = args.run {
+        if (title.isBlank()) {
+            Completable.error(IllegalArgumentException("Title cannot be empty"))
+        } else {
+            shoppingListDao.insertList(
+                ShoppingListEntity(
+                    title = title,
+                    isArchived = false,
+                    timestampCreated = timestampCreated
+                )
+            )
+        }
+    }
 
 }

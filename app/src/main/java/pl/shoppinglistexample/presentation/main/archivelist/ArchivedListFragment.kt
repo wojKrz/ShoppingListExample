@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikepenz.fastadapter.ClickListener
 import com.mikepenz.fastadapter.FastAdapter
@@ -18,7 +19,9 @@ import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.ArchivedListFragmentBinding
 import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.base.ViewEvent
+import pl.shoppinglistexample.presentation.main.base.event.EventConsumer
 import pl.shoppinglistexample.presentation.main.currentlist.CurrentShoppingListItem
+import pl.shoppinglistexample.presentation.main.home.HomeFragmentDirections
 
 class ArchivedListFragment : BaseFragment() {
 
@@ -50,7 +53,7 @@ class ArchivedListFragment : BaseFragment() {
             displayLists(it.map(::ArchivedShoppingListItem))
         })
 
-        viewModel.getViewEvents().observe(viewLifecycleOwner, Observer {
+        viewModel.getViewEvents().observe(viewLifecycleOwner, EventConsumer {
             reactToEvent(it)
         })
 
@@ -65,7 +68,7 @@ class ArchivedListFragment : BaseFragment() {
     //region Navigation
 
     private fun navigateToDetails(listId: Long) {
-
+        findNavController().navigate(HomeFragmentDirections.actionCurrentToListDetails(listId))
     }
 
     //endregion
@@ -83,7 +86,8 @@ class ArchivedListFragment : BaseFragment() {
                     item: ArchivedShoppingListItem,
                     position: Int
                 ): Boolean {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    navigateToDetails(item.model.id)
+                    return true
                 }
 
             }

@@ -24,6 +24,7 @@ import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.CurrentListFragmentBinding
 import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.base.ViewEvent
+import pl.shoppinglistexample.presentation.main.base.event.EventConsumer
 import pl.shoppinglistexample.presentation.main.home.HomeFragmentDirections
 import javax.inject.Inject
 
@@ -60,7 +61,7 @@ class CurrentListFragment : BaseFragment() {
             displayLists(it.map(::CurrentShoppingListItem))
         })
 
-        viewModel.getViewEvents().observe(viewLifecycleOwner, Observer {
+        viewModel.getViewEvents().observe(viewLifecycleOwner, EventConsumer {
             reactToEvent(it)
         })
     }
@@ -80,13 +81,13 @@ class CurrentListFragment : BaseFragment() {
     }
 
     private fun navigateToDetails(listId: Long) {
-
+        findNavController().navigate(HomeFragmentDirections.actionCurrentToListDetails(listId))
     }
 
     //endregion
 
     private fun showArchiveSuccessSnack() {
-        Snackbar.make(rootView, "Archived", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(rootView, R.string.archived, Snackbar.LENGTH_SHORT).show()
     }
 
     private lateinit var currentListsFragmentAdapter: ItemAdapter<CurrentShoppingListItem>

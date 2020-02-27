@@ -16,10 +16,10 @@ abstract class ShoppingListDao {
     @Query("UPDATE shopping_list SET is_archived = :isArchived WHERE id = :id")
     abstract fun setIsArchived(id: Long, isArchived: Boolean): Completable
 
-    @Query("SELECT * FROM shopping_list WHERE is_archived = 0")
+    @Query("SELECT * FROM shopping_list WHERE is_archived = 0 ORDER BY timestamp_created DESC")
     abstract fun observeCurrentLists(): Flowable<List<ShoppingListEntity>>
 
-    @Query("SELECT * FROM shopping_list WHERE is_archived = 1")
+    @Query("SELECT * FROM shopping_list WHERE is_archived = 1 ORDER BY timestamp_created DESC")
     abstract fun observeArchivedLists(): Flowable<List<ShoppingListEntity>>
 
     @Query("SELECT * FROM shopping_list WHERE id = :id")

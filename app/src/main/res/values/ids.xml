@@ -5,4 +5,9 @@
 
     <item name="itemArchivedList" type="id" />
 
+    <item name="currentShoppingListElement" type="id" />
+
+    <item name="archivedShoppingListElement" type="id" />
+
+
 </resources>

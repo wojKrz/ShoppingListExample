@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.CreateNewListFragmentBinding
+import pl.shoppinglistexample.presentation.main.MainViewModel
 import pl.shoppinglistexample.presentation.main.base.BaseDialogFragment
 import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.base.ViewEvent
+import pl.shoppinglistexample.presentation.main.base.event.EventConsumer
 import javax.inject.Inject
 
 class CreateNewListFragment : BaseDialogFragment() {
@@ -43,7 +46,7 @@ class CreateNewListFragment : BaseDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getViewEvents().observe(viewLifecycleOwner, Observer {
+        viewModel.getViewEvents().observe(viewLifecycleOwner, EventConsumer {
             reactToEvent(it)
         })
 

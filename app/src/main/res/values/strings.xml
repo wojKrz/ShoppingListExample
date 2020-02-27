@@ -10,4 +10,14 @@
 
     <string name="archived_list_label">Archived</string>
 
+    <!-- Create -->
+
+    <string name="add">Add</string>
+    <string name="title_hint">Title</string>
+
+    <!-- Edit -->
+
+    <string name="archived">Archived</string>
+    <string name="new_element_hint">Type item to buy here and press -></string>
+
 </resources>

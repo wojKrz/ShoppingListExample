@@ -1,11 +1,11 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+
+    <style name="MainButtonStyle" parent="Widget.MaterialComponents.Button" >
+
     </style>
 
+    <style name="MainTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox" >
+        <item name="boxBackgroundColor">@color/white</item>
+    </style>
 </resources>
