@@ -6,16 +6,19 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+
+    compileSdkVersion versions.compile_version
+    buildToolsVersion versions.build_tools
+
     defaultConfig {
         applicationId "pl.shoppinglistexample"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion versions.min_version
+        targetSdkVersion versions.target_version
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,8 +32,9 @@ android {
 
     //endregion
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = 1.8
@@ -47,8 +51,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
     implementation "androidx.constraintlayout:constraintlayout:$versions.androidx_constraint"
 
     implementation "androidx.activity:activity-ktx:$versions.activity_ktx"
@@ -64,16 +66,16 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$versions.hilt"
     kapt "com.google.dagger:hilt-compiler:$versions.hilt"
 
-    implementation'joda-time:joda-time:2.10.5'
+    implementation "joda-time:joda-time:$versions.joda_time"
 
-    implementation "io.reactivex.rxjava2:rxjava:$versions.rx_java"
-    implementation "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "io.reactivex.rxjava3:rxjava:$versions.rx_java"
+    implementation "io.reactivex.rxjava3:rxkotlin:$versions.rx_kotlin"
+    implementation "io.reactivex.rxjava3:rxandroid:$versions.rx_android"
 
     implementation "com.mikepenz:fastadapter:$versions.fast_adapter"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:$test_versions.junit"
+    androidTestImplementation "androidx.test:runner:$test_versions.runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$test_versions.espresso"
 
 }
