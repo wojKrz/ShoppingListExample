@@ -5,24 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.CreateNewListFragmentBinding
-import pl.shoppinglistexample.presentation.main.MainViewModel
 import pl.shoppinglistexample.presentation.main.base.BaseDialogFragment
-import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.base.ViewEvent
 import pl.shoppinglistexample.presentation.main.base.event.EventConsumer
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class CreateNewListFragment : BaseDialogFragment() {
 
-    val viewModel: CreateNewListViewModel by viewModels { vmFactory }
+    val viewModel: CreateNewListViewModel by viewModels()
 
     sealed class CreateListViewEvent : ViewEvent() {
         object ListCreatedEvent : CreateListViewEvent()

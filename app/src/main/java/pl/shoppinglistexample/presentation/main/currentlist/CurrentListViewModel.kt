@@ -2,21 +2,20 @@ package pl.shoppinglistexample.presentation.main.currentlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.reactivex.Scheduler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import pl.shoppinglistexample.domain.model.ShoppingListItemModel
-import pl.shoppinglistexample.domain.usecase.currentlist.MoveListToArchivedUsecase
-import pl.shoppinglistexample.domain.usecase.currentlist.ObserveCurrentShoppingListsUsecase
-import pl.shoppinglistexample.domain.usecase.listdetails.AddShoppingListItemUsecase
+import pl.shoppinglistexample.domain.usecase.currentlist.MoveListToArchived
+import pl.shoppinglistexample.domain.usecase.currentlist.ObserveCurrentShoppingList
 import pl.shoppinglistexample.presentation.main.base.BaseViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class CurrentListViewModel @Inject constructor(
-    val observeCurrentShoppingListsUsecase: ObserveCurrentShoppingListsUsecase,
-    val moveListToArchivedUsecase: MoveListToArchivedUsecase
+    val observeCurrentShoppingListsUsecase: ObserveCurrentShoppingList,
+    val moveListToArchivedUsecase: MoveListToArchived
 ): BaseViewModel() {
 
     private val _lists = MutableLiveData<List<ShoppingListItemModel>>()

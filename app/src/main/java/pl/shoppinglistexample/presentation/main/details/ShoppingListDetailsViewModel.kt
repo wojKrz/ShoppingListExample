@@ -2,25 +2,24 @@ package pl.shoppinglistexample.presentation.main.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.reactivex.Scheduler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import pl.shoppinglistexample.domain.mapper.ShoppingListMapper
 import pl.shoppinglistexample.domain.model.ShoppingListModel
 import pl.shoppinglistexample.domain.usecase.listdetails.AddShoppingListItemUsecase
-import pl.shoppinglistexample.domain.usecase.listdetails.ObserveShoppingListDetailsUsecase
-import pl.shoppinglistexample.domain.usecase.listdetails.RemoveShoppingListItemUsecase
+import pl.shoppinglistexample.domain.usecase.listdetails.ObserveShoppingListDetails
+import pl.shoppinglistexample.domain.usecase.listdetails.RemoveShoppingListItem
 import pl.shoppinglistexample.domain.usecase.listdetails.UpdateShoppingListParams
 import pl.shoppinglistexample.presentation.main.base.BaseViewModel
 import java.security.InvalidParameterException
 import javax.inject.Inject
 
+@HiltViewModel
 class ShoppingListDetailsViewModel @Inject constructor(
-    private val observeShoppingListDetailsUsecase: ObserveShoppingListDetailsUsecase,
+    private val observeShoppingListDetailsUsecase: ObserveShoppingListDetails,
     private val addShoppingListItemUsecase: AddShoppingListItemUsecase,
-    private val removeShoppingListItemUsecase: RemoveShoppingListItemUsecase
+    private val removeShoppingListItemUsecase: RemoveShoppingListItem
 ) : BaseViewModel() {
 
     private lateinit var currentShoppingListModel: ShoppingListModel

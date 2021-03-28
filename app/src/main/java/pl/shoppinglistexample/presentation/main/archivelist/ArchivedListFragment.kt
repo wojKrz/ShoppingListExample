@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,18 +13,19 @@ import com.mikepenz.fastadapter.ClickListener
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.current_list_fragment.*
 import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.ArchivedListFragmentBinding
 import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.base.ViewEvent
 import pl.shoppinglistexample.presentation.main.base.event.EventConsumer
-import pl.shoppinglistexample.presentation.main.currentlist.CurrentShoppingListItem
 import pl.shoppinglistexample.presentation.main.home.HomeFragmentDirections
 
+@AndroidEntryPoint
 class ArchivedListFragment : BaseFragment() {
 
-    val viewModel: ArchivedListViewModel by viewModels { vmFactory }
+    val viewModel: ArchivedListViewModel by viewModels()
 
     sealed class ArchivedListViewEvent : ViewEvent() {
         data class ShowListDetails(val listId: Long) : ArchivedListViewEvent()

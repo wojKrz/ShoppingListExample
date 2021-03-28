@@ -1,15 +1,16 @@
 package pl.shoppinglistexample.domain.usecase.currentlist
 
 import io.reactivex.Completable
-import io.reactivex.schedulers.Schedulers
+import pl.shoppinglistexample.domain.usecase.base.CompletableUsecase
 import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao
 import pl.shoppinglistexample.persistence.database.entity.ShoppingListEntity
-import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
-class CreateNewShoppingListImpl @Inject constructor(
+data class CreateNewListParams(val title: String, val timestampCreated: Long)
+
+class CreateNewShoppingList @Inject constructor(
     val shoppingListDao: ShoppingListDao
-) : CreateNewShoppingListUsecase {
+) : CompletableUsecase<CreateNewListParams> {
 
     override fun execute(args: CreateNewListParams): Completable = args.run {
         if (title.isBlank()) {

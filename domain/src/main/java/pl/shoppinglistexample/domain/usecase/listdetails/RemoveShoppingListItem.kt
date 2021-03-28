@@ -2,13 +2,15 @@ package pl.shoppinglistexample.domain.usecase.listdetails
 
 import io.reactivex.Completable
 import pl.shoppinglistexample.domain.mapper.ShoppingListItemsMapper
+import pl.shoppinglistexample.domain.usecase.base.CompletableUsecase
+import pl.shoppinglistexample.domain.usecase.listdetails.UpdateShoppingListParams.RemoveItemParams
 import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao
 import javax.inject.Inject
 
-class RemoveShoppingListItemImpl @Inject constructor(
+class RemoveShoppingListItem @Inject constructor(
     val shoppingListDao: ShoppingListDao,
     val shoppingListMapper: ShoppingListItemsMapper
-) : RemoveShoppingListItemUsecase {
+) : CompletableUsecase<RemoveItemParams> {
 
     override fun execute(removeItemParams: UpdateShoppingListParams.RemoveItemParams): Completable {
         return if (removeItemParams.listModel.isArchived) run {

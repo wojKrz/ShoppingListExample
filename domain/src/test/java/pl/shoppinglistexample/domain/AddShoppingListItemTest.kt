@@ -7,10 +7,9 @@ import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import pl.shoppinglistexample.domain.mapper.ShoppingListItemsMapper
 import pl.shoppinglistexample.domain.model.ShoppingListModel
-import pl.shoppinglistexample.domain.usecase.listdetails.AddShoppingListItemUsecaseImpl
+import pl.shoppinglistexample.domain.usecase.listdetails.AddShoppingListItemUsecase
 import pl.shoppinglistexample.domain.usecase.listdetails.UpdateShoppingListParams
 import pl.shoppinglistexample.persistence.database.dao.ShoppingListDao
-import java.lang.UnsupportedOperationException
 import java.security.InvalidParameterException
 
 class AddShoppingListItemTest {
@@ -23,7 +22,11 @@ class AddShoppingListItemTest {
 
     @Test
     fun addShoppingListItem_failOnArchivedListUpdate() {
-        val addShoppingListItemUsecase = AddShoppingListItemUsecaseImpl(shoppingListDao, mapper)
+        val addShoppingListItemUsecase =
+            AddShoppingListItemUsecase(
+                shoppingListDao,
+                mapper
+            )
 
         val oldModel = ShoppingListModel(2, "title", 0L,emptyList(), true)
         val newItem = "New item"
@@ -38,7 +41,11 @@ class AddShoppingListItemTest {
 
     @Test
     fun addShoppingListItem_failOnEmptyItem() {
-        val addShoppingListItemUsecase = AddShoppingListItemUsecaseImpl(shoppingListDao, mapper)
+        val addShoppingListItemUsecase =
+            AddShoppingListItemUsecase(
+                shoppingListDao,
+                mapper
+            )
 
         val oldModel = ShoppingListModel(2, "title", 0L,emptyList(), false)
         val newItem = ""
@@ -54,7 +61,11 @@ class AddShoppingListItemTest {
 
     @Test
     fun addShoppingListItem_failOnNullItem() {
-        val addShoppingListItemUsecase = AddShoppingListItemUsecaseImpl(shoppingListDao, mapper)
+        val addShoppingListItemUsecase =
+            AddShoppingListItemUsecase(
+                shoppingListDao,
+                mapper
+            )
 
         val oldModel = ShoppingListModel(2, "title", 0L,emptyList(), false)
         val newItem = null

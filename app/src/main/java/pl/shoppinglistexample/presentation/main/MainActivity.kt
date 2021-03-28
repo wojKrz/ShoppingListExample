@@ -1,25 +1,13 @@
 package pl.shoppinglistexample.presentation.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import dagger.android.HasAndroidInjector
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import pl.shoppinglistexample.databinding.MainActivityBinding
-import javax.inject.Inject
 
-
-class MainActivity : DaggerAppCompatActivity(), HasAndroidInjector {
-
-    //region ViewModel
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel: MainViewModel by viewModels { viewModelFactory }
-
-    //endregion
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
     //region Lifecycle
 
@@ -27,7 +15,6 @@ class MainActivity : DaggerAppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         val binding =
             DataBindingUtil.setContentView<MainActivityBinding>(this, pl.shoppinglistexample.R.layout.main_activity)
-        binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
 

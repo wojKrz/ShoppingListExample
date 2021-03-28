@@ -2,8 +2,7 @@ package pl.shoppinglistexample.presentation.main.archivelist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.reactivex.Scheduler
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
@@ -12,6 +11,7 @@ import pl.shoppinglistexample.domain.usecase.archivedlist.ObserveArchivedShoppin
 import pl.shoppinglistexample.presentation.main.base.BaseViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class ArchivedListViewModel @Inject constructor(
     private val observeArchivedShoppingListsUsecase: ObserveArchivedShoppingListsUsecase
 ): BaseViewModel() {

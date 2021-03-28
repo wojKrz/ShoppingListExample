@@ -1,6 +1,5 @@
 package pl.shoppinglistexample.presentation.main.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.home_fragment.*
 import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.HomeFragmentBinding
@@ -18,6 +18,7 @@ import pl.shoppinglistexample.presentation.main.archivelist.ArchivedListFragment
 import pl.shoppinglistexample.presentation.main.base.BaseFragment
 import pl.shoppinglistexample.presentation.main.currentlist.CurrentListFragment
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
     override fun onCreateView(

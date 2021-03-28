@@ -15,15 +15,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.listeners.ClickEventHook
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.list_details_fragment.*
 import kotlinx.android.synthetic.main.shopping_list_element_item.view.*
 import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.ListDetailsFragmentBinding
 import pl.shoppinglistexample.presentation.main.base.BaseFragment
 
+@AndroidEntryPoint
 class ShoppingListDetailsFragment : BaseFragment() {
 
-    val viewModel: ShoppingListDetailsViewModel by viewModels { vmFactory }
+    val viewModel: ShoppingListDetailsViewModel by viewModels()
 
     private val args: ShoppingListDetailsFragmentArgs by navArgs()
 
