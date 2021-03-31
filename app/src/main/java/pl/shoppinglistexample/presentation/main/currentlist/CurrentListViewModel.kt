@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrentListViewModel @Inject constructor(
-    val observeCurrentShoppingListsUsecase: ObserveCurrentShoppingList,
-    val moveListToArchivedUsecase: MoveListToArchived
+    private val observeCurrentShoppingListsUsecase: ObserveCurrentShoppingList,
+    private val moveListToArchivedUsecase: MoveListToArchived
 ): BaseViewModel() {
 
     private val _lists = MutableLiveData<List<ShoppingListItemModel>>()

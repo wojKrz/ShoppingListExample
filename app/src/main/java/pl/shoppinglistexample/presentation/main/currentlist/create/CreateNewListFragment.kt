@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import pl.shoppinglistexample.R
 import pl.shoppinglistexample.databinding.CreateNewListFragmentBinding
-import pl.shoppinglistexample.presentation.main.base.BaseDialogFragment
 import pl.shoppinglistexample.presentation.main.base.ViewEvent
 import pl.shoppinglistexample.presentation.main.base.event.EventConsumer
 
 @AndroidEntryPoint
-class CreateNewListFragment : BaseDialogFragment() {
+class CreateNewListFragment : DialogFragment() {
 
     val viewModel: CreateNewListViewModel by viewModels()
+
+    private lateinit var binding: CreateNewListFragmentBinding
 
     sealed class CreateListViewEvent : ViewEvent() {
         object ListCreatedEvent : CreateListViewEvent()
@@ -27,15 +27,11 @@ class CreateNewListFragment : BaseDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = DataBindingUtil.inflate<CreateNewListFragmentBinding>(
-        inflater,
-        R.layout.create_new_list_fragment,
-        container,
-        false
-    ).run {
-        this.viewModel = this@CreateNewListFragment.viewModel
-        this.lifecycleOwner = this@CreateNewListFragment
-        return root
+    ): View {
+        binding = CreateNewListFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +40,6 @@ class CreateNewListFragment : BaseDialogFragment() {
         viewModel.getViewEvents().observe(viewLifecycleOwner, EventConsumer {
             reactToEvent(it)
         })
-
     }
 
     private fun reactToEvent(event: ViewEvent) {
@@ -52,6 +47,4 @@ class CreateNewListFragment : BaseDialogFragment() {
             is CreateListViewEvent.ListCreatedEvent -> findNavController().popBackStack()
         }
     }
-
-
 }

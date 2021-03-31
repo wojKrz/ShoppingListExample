@@ -4,28 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.mikepenz.fastadapter.listeners.ClickEventHook
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.list_details_fragment.*
-import kotlinx.android.synthetic.main.shopping_list_element_item.view.*
-import pl.shoppinglistexample.R
-import pl.shoppinglistexample.databinding.ListDetailsFragmentBinding
-import pl.shoppinglistexample.presentation.main.base.BaseFragment
+import pl.shoppinglistexample.databinding.ShoppingListDetailsFragmentBinding
 
 @AndroidEntryPoint
-class ShoppingListDetailsFragment : BaseFragment() {
+class ShoppingListDetailsFragment : Fragment() {
 
     val viewModel: ShoppingListDetailsViewModel by viewModels()
+
+    private lateinit var binding: ShoppingListDetailsFragmentBinding
 
     private val args: ShoppingListDetailsFragmentArgs by navArgs()
 
@@ -33,15 +28,11 @@ class ShoppingListDetailsFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = DataBindingUtil.inflate<ListDetailsFragmentBinding>(
-        inflater,
-        R.layout.list_details_fragment,
-        container,
-        false
-    ).run {
-        viewModel = this@ShoppingListDetailsFragment.viewModel
-        lifecycleOwner = this@ShoppingListDetailsFragment
-        return root
+    ): View {
+        binding = ShoppingListDetailsFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,44 +40,21 @@ class ShoppingListDetailsFragment : BaseFragment() {
 
         initRecyclerView()
 
-        appBar.setupWithNavController(findNavController())
+        binding.appBar.setupWithNavController(findNavController())
 
         viewModel.initWithId(args.listId)
 
-        viewModel.getElements().observe(viewLifecycleOwner, Observer {
+        viewModel.getElements().observe(viewLifecycleOwner, {
             displayElements(mapToListItems(it))
         })
 
-        viewModel.isEditable.observe(viewLifecycleOwner, Observer {
+        viewModel.isEditable.observe(viewLifecycleOwner, {
             setupEditable(it)
         })
     }
 
     private fun setupEditable(isEditable: Boolean) {
-        listItemFactory = if (isEditable) {
-            ::CurrentShoppingListElementItem
-        } else {
-            ::ArchivedShoppingListElementItem
-        }
-    }
-
-    private val deleteItemEventHook = object : ClickEventHook<ShoppingListElementItem>() {
-
-        override fun onBind(viewHolder: RecyclerView.ViewHolder): View? =
-            if (viewHolder is ShoppingListElementItem.ShoppingListElementViewHolder) {
-                viewHolder.itemView.removeElementButton
-            } else {
-                null
-            }
-
-        override fun onClick(
-            v: View,
-            position: Int,
-            fastAdapter: FastAdapter<ShoppingListElementItem>,
-            item: ShoppingListElementItem
-        ) {
-            viewModel.onRemoveElementClick(position)
-        }
+        listItemFactory = { title: String -> ShoppingListElementItem(isEditable, title) }
     }
 
     private lateinit var listItemFactory: (String) -> ShoppingListElementItem
@@ -96,13 +64,13 @@ class ShoppingListDetailsFragment : BaseFragment() {
     private fun initRecyclerView() {
         listElementsAdapter = ItemAdapter()
         val fastAdapter = FastAdapter.with(listElementsAdapter).apply {
-            addEventHook(deleteItemEventHook)
+            addEventHook(ClickRemoveShoppingListElementEventHook(viewModel::onRemoveElementClick))
         }
 
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        listItemsRecycler.apply {
+        binding.listItemsRecycler.apply {
             this.adapter = fastAdapter
             this.layoutManager = layoutManager
         }

@@ -36,7 +36,7 @@
         <fragment
             android:id="@+id/fragmentListDetails"
             android:name="pl.shoppinglistexample.presentation.main.details.ShoppingListDetailsFragment"
-            tools:layout="@layout/list_details_fragment">
+            tools:layout="@layout/shopping_list_details_fragment">
             <argument
                 android:name="listId"
                 app:argType="long" />

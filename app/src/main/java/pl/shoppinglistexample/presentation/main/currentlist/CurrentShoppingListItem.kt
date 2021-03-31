@@ -1,19 +1,16 @@
 package pl.shoppinglistexample.presentation.main.currentlist
 
-import android.view.View
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.items.ModelAbstractItem
-import kotlinx.android.synthetic.main.current_shopping_list_item.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.mikepenz.fastadapter.binding.ModelAbstractBindingItem
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import pl.shoppinglistexample.R
+import pl.shoppinglistexample.databinding.CurrentShoppingListItemBinding
 import pl.shoppinglistexample.domain.model.ShoppingListItemModel
-import java.time.format.DateTimeFormatter
 
-class CurrentShoppingListItem(model: ShoppingListItemModel) : ModelAbstractItem<ShoppingListItemModel, CurrentShoppingListItem.CurrentListViewHolder>(model) {
-
-    override val layoutRes: Int
-        get() = R.layout.current_shopping_list_item
+class CurrentShoppingListItem(model: ShoppingListItemModel) :
+    ModelAbstractBindingItem<ShoppingListItemModel, CurrentShoppingListItemBinding>(model) {
 
     override val type: Int
         get() = R.id.itemCurrentList
@@ -22,21 +19,23 @@ class CurrentShoppingListItem(model: ShoppingListItemModel) : ModelAbstractItem<
         get() = model.id
         set(_) {}
 
-    override fun getViewHolder(v: View): CurrentListViewHolder = CurrentListViewHolder(v)
+    override fun createBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup?
+    ): CurrentShoppingListItemBinding =
+        CurrentShoppingListItemBinding.inflate(inflater, parent, false)
 
-    class CurrentListViewHolder(itemView: View): FastAdapter.ViewHolder<CurrentShoppingListItem>(itemView) {
+    override fun bindView(binding: CurrentShoppingListItemBinding, payloads: List<Any>) =
+        with(binding) {
 
-        override fun bindView(item: CurrentShoppingListItem, payloads: MutableList<Any>) = with(itemView){
-
-            listTitleTxt.text = item.model.title
-            creationDateTxt.text = DateTime(item.model.timestampCreated).toString(DateTimeFormat.forPattern("dd.MM.yyyy"))
+            listTitleTxt.text = model.title
+            creationDateTxt.text =
+                DateTime(model.timestampCreated).toString(DateTimeFormat.forPattern("dd.MM.yyyy"))
         }
 
-        override fun unbindView(item: CurrentShoppingListItem) = with(itemView){
-            listTitleTxt.text = null
-            creationDateTxt.text = null
-        }
-
+    override fun unbindView(binding: CurrentShoppingListItemBinding) = with(binding) {
+        listTitleTxt.text = null
+        creationDateTxt.text = null
     }
-}
 
+}

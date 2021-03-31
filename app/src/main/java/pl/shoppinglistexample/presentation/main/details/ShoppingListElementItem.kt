@@ -1,42 +1,39 @@
 package pl.shoppinglistexample.presentation.main.details
 
-import android.view.View
-import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.items.ModelAbstractItem
-import kotlinx.android.synthetic.main.shopping_list_element_item.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.core.view.isVisible
+import com.mikepenz.fastadapter.binding.ModelAbstractBindingItem
 import pl.shoppinglistexample.R
+import pl.shoppinglistexample.databinding.ShoppingListElementItemBinding
 
-class CurrentShoppingListElementItem(model: String) : ShoppingListElementItem(model) {
+class ShoppingListElementItem(
+    private val isEditable: Boolean,
+    model: String
+) : ModelAbstractBindingItem<String, ShoppingListElementItemBinding>(model) {
 
-    override val layoutRes: Int
-        get() = R.layout.shopping_list_element_item
-    override val type: Int
-        get() = R.id.currentShoppingListElement
-
-}
-
-class ArchivedShoppingListElementItem(model: String) : ShoppingListElementItem(model){
-
-    override val layoutRes: Int
-        get() = R.layout.archived_shopping_list_element_item
     override val type: Int
         get() = R.id.archivedShoppingListElement
 
-}
+    override var identifier: Long
+        get() = model.hashCode().toLong()
+        set(_) {}
 
-abstract class ShoppingListElementItem(model: String) : ModelAbstractItem<String, ShoppingListElementItem.ShoppingListElementViewHolder>(model) {
+    override fun createBinding(
+        inflater: LayoutInflater,
+        parent: ViewGroup?
+    ): ShoppingListElementItemBinding =
+        ShoppingListElementItemBinding.inflate(inflater, parent, false)
 
-    override fun getViewHolder(v: View): ShoppingListElementViewHolder = ShoppingListElementViewHolder(v)
 
-    class ShoppingListElementViewHolder(v: View): FastAdapter.ViewHolder<ShoppingListElementItem>(v) {
-
-        override fun bindView(item: ShoppingListElementItem, payloads: MutableList<Any>) = with(itemView){
-            itemTxt.text = item.model
+    override fun bindView(binding: ShoppingListElementItemBinding, payloads: List<Any>) =
+        with(binding) {
+            itemTxt.text = model
+            removeElementButton.isVisible = isEditable
         }
 
-        override fun unbindView(item: ShoppingListElementItem) = with(itemView){
-            itemTxt.text = null
-        }
-
+    override fun unbindView(binding: ShoppingListElementItemBinding) = with(binding) {
+        itemTxt.text = null
+        removeElementButton.isVisible = false
     }
 }

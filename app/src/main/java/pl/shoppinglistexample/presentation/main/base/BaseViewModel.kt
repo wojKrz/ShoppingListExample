@@ -10,7 +10,7 @@ abstract class BaseViewModel: ViewModel() {
 
     val compositeDisposable = CompositeDisposable()
 
-    protected val _viewEvents = MutableLiveData<ConsumableEvent<ViewEvent>>()
+    private val _viewEvents = MutableLiveData<ConsumableEvent<ViewEvent>>()
 
     fun getViewEvents(): LiveData<ConsumableEvent<ViewEvent>> = _viewEvents
 
