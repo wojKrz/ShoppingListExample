@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: "kotlin-kapt"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion versions.compile_version
     buildToolsVersion versions.build_tools
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion versions.min_version
+        targetSdkVersion versions.target_version
         versionCode 1
         versionName "1.0"
 
